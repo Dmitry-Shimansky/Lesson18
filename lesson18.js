@@ -90,15 +90,20 @@ window.addEventListener('DOMContentLoaded', () => {
 		const popup = document.querySelector('.popup'),
 			popupBtn = document.querySelectorAll('.popup-btn'),
 			popUpClose = document.querySelector('.popup-close'),
-			popUp = document.querySelector('.popup-content');
+			popUp = document.querySelector('.popup-content'),
+			width = document.documentElement.clientWidth;
 		let	count = 0;
 
 		let flyingPopUp = function () {
 
 			count++;
-			popUp.style.top = count + 'px';
-			if (count < 550) {
-				setTimeout(flyingPopUp, 10);
+			if (width < 768) {
+				return;
+			} else {
+				popUp.style.top = count + 'px';
+				if (count < 550) {
+					setTimeout(flyingPopUp, 10);
+				}
 			}
 		};
 
@@ -115,18 +120,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	togglePopup();
 
-	/*let popUp = document.querySelector('.popup-content'),
-		pop = document.querySelector('.popup'),
-		count = 0;
-	pop.style.display = 'block';
 
-	let flyingPopUp = function () {
-
-		count++;
-		popUp.style.top = count + 'px';
-		if(count < 550) {
-			setTimeout(flyingPopUp, 10);
-		}*/
 
 
 
