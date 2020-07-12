@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			};
 		}
 
-		function updateClock() {
+		let interval = setInterval (function() {
 			const timer = getTimeRemaining();
 
 			if (timer.hours < 10) {
@@ -40,16 +40,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			} else {
 				timerSeconds.textContent = timer.seconds;
 			}
-			if (timer.timeRemaining > 0) {
-				setInterval(updateClock, 1000);
-			} else {
+			
+			if (timer.timeRemaining <= 0) {
+				clearInterval(interval);
 				timerHours.textContent = '00';
 				timerMinutes.textContent = '00';
-			    timerSeconds.textContent = '00';
+				timerSeconds.textContent = '00';
 			}
-		}
+		}, 1000);
 
-		updateClock();
 
 	}
 
