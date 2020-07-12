@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
+'use strict';
 
 	//Timer
 	function countTimer(deadLine) {
@@ -49,10 +50,84 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		}, 1000);
 
-
-	}
+	};
 
 	countTimer('20 july 2020');
 	//setInterval(countTimer, 1000, '20 july 2020');
+
+	//Меню
+	const toggleMenu = () => {
+
+		const btnMenu = document.querySelector('.menu'),
+			menu = document.querySelector('menu'),
+			closeBtn = document.querySelector('.close-btn'),
+			menuItems = menu.querySelectorAll('ul>li');
+
+		const handlerMenu = () => {
+			menu.classList.toggle('active-menu');
+
+			/*if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
+				menu.style.transform = `translate(0)`;
+			} else {
+				menu.style.transform = `translate(-100%)`;
+			}*/
+		};
+
+		btnMenu.addEventListener('click', handlerMenu);
+		closeBtn.addEventListener('click', handlerMenu);
+		menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+		
+		/*for (let i = 0; i < menuItems.length; i++) {
+			menuItems[i].addEventListener('click', handlerMenu);
+		}*/
+
+	};
+
+	toggleMenu();
+
+	//popup
+	const togglePopup = () => {
+		const popup = document.querySelector('.popup'),
+			popupBtn = document.querySelectorAll('.popup-btn'),
+			popUpClose = document.querySelector('.popup-close'),
+			popUp = document.querySelector('.popup-content');
+		let	count = 0;
+
+		let flyingPopUp = function () {
+
+			count++;
+			popUp.style.top = count + 'px';
+			if (count < 550) {
+				setTimeout(flyingPopUp, 10);
+			}
+		};
+
+		popupBtn.forEach((elem) => {
+			elem.addEventListener('click', () => {
+				popup.style.display = 'block';
+				flyingPopUp();
+			});
+		});
+		popUpClose.addEventListener('click', () => {
+			popup.style.display = 'none';
+		});
+	};
+
+	togglePopup();
+
+	/*let popUp = document.querySelector('.popup-content'),
+		pop = document.querySelector('.popup'),
+		count = 0;
+	pop.style.display = 'block';
+
+	let flyingPopUp = function () {
+
+		count++;
+		popUp.style.top = count + 'px';
+		if(count < 550) {
+			setTimeout(flyingPopUp, 10);
+		}*/
+
+
 
 });
