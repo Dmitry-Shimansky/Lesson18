@@ -188,7 +188,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	const slider = () => {
 		const slide = document.querySelectorAll('.portfolio-item'),
 			btn = document.querySelectorAll('.portfolio-btn'),
-			dot = document.querySelectorAll('.dot'),
 			slider = document.querySelector('.portfolio-content');
 
 		let currentSlide = 0,
@@ -211,10 +210,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		dotAdding();
 
+		const dot = document.querySelectorAll('.dot');
+
 		const prevSlide = (elem, index, strClass) => {
-			console.log(elem);
-			console.log(index);
-			console.log(elem[index].classList);
 
 			elem[index].classList.remove(strClass);
 			console.log(elem[index].classList);
@@ -246,8 +244,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			clearInterval(interval);
 		};
-
-
 
 		slider.addEventListener('click', (event) => {
 			event.preventDefault();
