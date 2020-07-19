@@ -167,9 +167,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		tabHeader.addEventListener('click', (event) => {
 			let target = event.target;
-			console.log(target);
+
 			target = target.closest('.service-header-tab');
-			console.log(target);
 
 			if (target) {
 				tab.forEach((item, i) => {
@@ -187,7 +186,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	const slider = () => {
 		const slide = document.querySelectorAll('.portfolio-item'),
-			btn = document.querySelectorAll('.portfolio-btn'),
+			//btn = document.querySelectorAll('.portfolio-btn'),
 			slider = document.querySelector('.portfolio-content');
 
 		let currentSlide = 0,
@@ -205,7 +204,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 				ul.append(li);
 			}
-			console.log(ul);
 		};
 
 		dotAdding();
@@ -215,10 +213,10 @@ window.addEventListener('DOMContentLoaded', () => {
 		const prevSlide = (elem, index, strClass) => {
 
 			elem[index].classList.remove(strClass);
-			console.log(elem[index].classList);
 		};
 
 		const nextSlide = (elem, index, strClass) => {
+
 			elem[index].classList.add(strClass);
 		};
 
@@ -297,5 +295,53 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 
 	slider();
+
+	//Наша команда
+
+	const photoSwitcher = () => {
+
+		const row = document.getElementsByClassName('row')[8];
+
+		row.addEventListener('mouseover', (event) => {
+
+			if (event.target.className !== 'command__photo') {
+				return;
+			}
+			const src = event.target.src;
+
+			event.target.src = event.target.dataset.img;
+
+			row.addEventListener('mouseout', (event) => {
+
+				if (event.target.className !== 'command__photo') {
+					return;
+				}
+				event.target.src = src;
+			});
+
+		});
+
+	};
+
+	photoSwitcher();
+
+	//Калькулятор
+
+	const calculator = () => {
+
+		const calcBlock = document.querySelector('.calc-block');
+
+		calcBlock.addEventListener('input', (event) => {
+
+			if (event.target.tagName === 'SELECT') {
+				return;
+			}
+
+			event.target.value = event.target.value.replace(/\D/g, '');
+		});
+
+	};
+
+	calculator();
 
 });
