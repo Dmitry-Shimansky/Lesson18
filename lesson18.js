@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	countTimer('20 july 2020');
+	countTimer('30 july 2020');
 	//setInterval(countTimer, 1000, '20 july 2020');
 
 	//Меню
@@ -373,12 +373,10 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 
 			if (typeValue && squareValue) {
-				total = price * typeValue * squareValue * countValue * dayValue;
+				total = Math.round(price * typeValue * squareValue * countValue * dayValue);
 			}
 			totalValue.textContent = total;
 		};
-
-
 
 		calcBlock.addEventListener('change', (event) => {
 			const target = event.target;
@@ -392,9 +390,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				countSum();
 			}
 		});
-
-
-
 	};
 
 	calc(100);
