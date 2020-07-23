@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	countTimer('30 july 2020');
+	countTimer('25 july 2020');
 	//setInterval(countTimer, 1000, '20 july 2020');
 
 	//Меню
@@ -393,6 +393,121 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 
 	calc(100);
+
+	//send ajax form
+
+	const sendForm = () => {
+		const errorMessage = 'Что то пошло не так...',
+			loadMessage = 'Загрузка...',
+			successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+		const form = document.getElementById('form1');
+		const form2 = document.getElementById('form2');
+
+		const statusMessage = document.createElement('div');
+		statusMessage.style.cssText = 'font-size: 2rem;';
+
+		const resetInputs = () => {
+			const name2 = document.querySelector('#form2-name'),
+				email2 = document.querySelector('#form2-email'),
+				phone2 = document.querySelector('#form2-phone'),
+				message2 = document.querySelector('#form2-message');
+
+			name2.value = '';
+			email2.value = '';
+			phone2.value = '';
+			message2.value = '';
+
+			const name1 = document.querySelector('#form1-name'),
+				email1 = document.querySelector('#form1-email'),
+				phone1 = document.querySelector('#form1-phone');
+
+			name1.value = '';
+			email1.value = '';
+			phone1.value = '';
+		};
+
+		const inputValidation = () => {
+			const phone1 = document.querySelector('#form1-phone'),
+				phone2 = document.querySelector('#form2-phone'),
+				name1 = document.querySelector('#form1-name'),
+				name2 = document.querySelector('#form2-name'),
+				message2 = document.querySelector('#form2-message');
+
+			phone1.addEventListener('input', maskPhone('#form1-phone'));
+			phone2.addEventListener('input', maskPhone('#form2-phone'));
+			name1.addEventListener('input', () => {
+				name1.value = name1.value.replace(/[A-Za-z]/g, '');
+				name2.value = name1.value.replace(/[A-Za-z]/g, '');
+				message2.value = message2.value.replace(/[A-Za-z]/g, '');
+			});
+
+		};
+
+		inputValidation();
+
+		const postData = (body, outputData, errorData) => {
+			const request = new XMLHttpRequest();
+
+			request.addEventListener('readystatechange', () => {
+				if (request.readyState !== 4) {
+					return;
+				}
+				if (request.status === 200) {
+					outputData();
+					resetInputs();
+				} else {
+					errorData(request.status);
+				}
+			});
+
+			request.open('POST', './server.php');
+			request.setRequestHeader('Content-type', 'application/json');
+			request.send(JSON.stringify(body));
+		};
+
+		form.addEventListener('submit', () => {
+			event.preventDefault();
+			form.appendChild(statusMessage);
+			statusMessage.textContent = loadMessage;
+			const formData = new FormData(form);
+			const body = {};
+
+			formData.forEach((val, key) => {
+				body[key] = val;
+			});
+
+			postData(body, () => {
+				statusMessage.textContent = successMessage;
+			}, (error) => {
+				statusMessage.textContent = errorMessage;
+				console.error(error);
+			});
+		});
+
+		form2.addEventListener('submit', () => {
+			event.preventDefault();
+			form2.appendChild(statusMessage);
+			statusMessage.textContent = loadMessage;
+			const formData = new FormData(form2);
+			const body = {};
+
+			for (let val of formData.entries()) {
+				body[val[0]] = val[1];
+			} 
+
+			postData(body, () => {
+				statusMessage.textContent = successMessage;
+			}, (error) => {
+				statusMessage.textContent = errorMessage;
+				console.error(error);
+			});
+		});
+
+	};
+
+	sendForm();
+
 
 
 });
