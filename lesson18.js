@@ -440,7 +440,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				name1.value = name1.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
 			});	
 			name2.addEventListener('input', () => {
-				name2.value = name1.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
+				name2.value = name2.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
 			});
 			message2.addEventListener('input', () => {
 				message2.value = message2.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
