@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	countTimer('25 july 2020');
+	countTimer('31 july 2020');
 	//setInterval(countTimer, 1000, '20 july 2020');
 
 	//Меню
@@ -106,7 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				return;
 			} else {
 				popUp.style.top = count + 'px';
-				if (count < 250) {
+				if (count < 150) {
 					setTimeout(flyingPopUp, 10);
 				}
 			}
@@ -403,9 +403,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const form = document.getElementById('form1');
 		const form2 = document.getElementById('form2');
+		const form3 = document.getElementById('form3');
 
 		const statusMessage = document.createElement('div');
-		statusMessage.style.cssText = 'font-size: 2rem;';
+		statusMessage.style.cssText = 'font-size: 2rem; color:white;';
 
 		const resetInputs = () => {
 			const name2 = document.querySelector('#form2-name'),
@@ -425,27 +426,40 @@ window.addEventListener('DOMContentLoaded', () => {
 			name1.value = '';
 			email1.value = '';
 			phone1.value = '';
+
+			const name3 = document.querySelector('#form3-name'),
+				email3 = document.querySelector('#form3-email'),
+				phone3 = document.querySelector('#form3-phone');
+
+			name3.value = '';
+			email3.value = '';
+			phone3.value = '';
 		};
 
 		const inputValidation = () => {
 			const phone1 = document.querySelector('#form1-phone'),
 				phone2 = document.querySelector('#form2-phone'),
+				phone3 = document.querySelector('#form3-phone'),
 				name1 = document.querySelector('#form1-name'),
 				name2 = document.querySelector('#form2-name'),
+				name3 = document.querySelector('#form3-name'),
 				message2 = document.querySelector('#form2-message');
 
 			phone1.addEventListener('input', maskPhone('#form1-phone'));
 			phone2.addEventListener('input', maskPhone('#form2-phone'));
+			phone3.addEventListener('input', maskPhone('#form3-phone'));
 			name1.addEventListener('input', () => {
 				name1.value = name1.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
 			});	
 			name2.addEventListener('input', () => {
 				name2.value = name2.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
 			});
+			name3.addEventListener('input', () => {
+				name3.value = name3.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
+			});
 			message2.addEventListener('input', () => {
 				message2.value = message2.value.replace(/[a-zA-Z0-9!@#$%^&*.,?/=()_+{}]/g, '');
 			});
-
 		};
 
 		inputValidation();
@@ -507,6 +521,26 @@ window.addEventListener('DOMContentLoaded', () => {
 				console.error(error);
 			});
 		});
+
+		form3.addEventListener('submit', () => {
+			event.preventDefault();
+			form3.appendChild(statusMessage);
+			statusMessage.textContent = loadMessage;
+			const formData = new FormData(form3);
+			const body = {};
+
+			for (let val of formData.entries()) {
+				body[val[0]] = val[1];
+			} 
+
+			postData(body, () => {
+				statusMessage.textContent = successMessage;
+			}, (error) => {
+				statusMessage.textContent = errorMessage;
+				console.error(error);
+			});
+		});
+
 
 	};
 
